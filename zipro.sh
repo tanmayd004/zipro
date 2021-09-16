@@ -33,7 +33,7 @@ NC='\033[0m'
      echo -e "\n ${CYAN1}trying Password : ${PURPLE1}$pass${NC}"
      counter=$(($counter + 1))
      unzip -P $pass -o $file_name
-     [ $? -eq 0 ] && clear && banner && echo -e "${WHITE1}[${GREEN1}~${WHITE1}] ${CYAN1}Password Found : ${GREEN1}$pass${NC}" && echo -e "${WHITE1}[${GREEN1}~${WHITE1}] ${CYAN1}Password Tried : ${GREEN1}$counter${NC}" && return $TRUE || return $FALSE
+     [ $? -eq 0 ] && END=$(date +%s) DIFF=$(( $END - $START )) && clear && banner && echo -e "${WHITE1}[${GREEN1}~${WHITE1}] ${CYAN1}Password Found : ${GREEN1}$pass${NC}" && echo -e "${WHITE1}[${GREEN1}~${WHITE1}] ${CYAN1}Password Tried : ${GREEN1}$counter${NC}" && echo -e "${WHITE1}[${GREEN1}~${WHITE1}] ${CYAN1}Time Taken     : ${GREEN1}$DIFF seconds${NC}" && return $TRUE || return $FALSE
  }
 
  function word_gen()
@@ -117,7 +117,7 @@ function dictonary()
      clear
      banner
      pswd_input
-     zip_input
+     zip_input && START=$(date +%s)
 
      length=`cat $pswd_list | wc -l`
      for ((i=1;i<=$length;i++))
